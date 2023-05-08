@@ -1,16 +1,17 @@
 package org.betterx.betterend.world.features.terrain;
 
-import org.betterx.betterend.world.biome.land.UmbraValleyBiome;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.SimpleStateProvider;
+import net.minecraft.world.level.biome.BiomeSource;
 
 import java.util.function.Function;
 
@@ -36,7 +37,8 @@ public class ArchFeatureConfig implements FeatureConfiguration {
     }
 
     public enum SurfaceFunction implements StringRepresentable {
-        UMBRA_VALLEY("umbra_valley", pos -> UmbraValleyBiome.getSurface(pos.getX(), pos.getZ()).defaultBlockState());
+
+        UMBRA_VALLEY("umbra_valley", pos -> Blocks.END_STONE.defaultBlockState());
         public static final Codec<SurfaceFunction> CODEC = StringRepresentable.fromEnum(SurfaceFunction::values);
         private final Function<BlockPos, BlockState> surfaceFunction;
         private final String name;

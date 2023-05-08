@@ -3,7 +3,6 @@ package org.betterx.betterend.mixin.common;
 import org.betterx.bclib.util.BlocksHelper;
 import org.betterx.bclib.util.StructureHelper;
 import org.betterx.betterend.BetterEnd;
-import org.betterx.betterend.world.generator.GeneratorOptions;
 import org.betterx.worlds.together.world.WorldConfig;
 
 import net.minecraft.core.BlockPos;
@@ -38,9 +37,7 @@ public class SpikeFeatureMixin {
             FeaturePlaceContext<SpikeConfiguration> featurePlaceContext,
             CallbackInfoReturnable<Boolean> info
     ) {
-        if (!GeneratorOptions.hasPillars()) {
-            info.setReturnValue(false);
-        }
+
     }
 
     @Inject(method = "placeSpike", at = @At("HEAD"), cancellable = true)
@@ -73,10 +70,9 @@ public class SpikeFeatureMixin {
             minY = world.getChunk(x >> 4, z >> 4).getHeight(Types.WORLD_SURFACE, x & 15, z);
         }
 
-        GeneratorOptions.setDirectSpikeHeight();
         int maxY = minY + spike.getHeight() - 64;
 
-        if (GeneratorOptions.replacePillars() && be_radiusInRange(radius)) {
+        if (be_radiusInRange(radius)) {
             radius--;
             StructureTemplate base = StructureHelper.readStructure(BetterEnd.makeID("pillars/pillar_base_" + radius));
             StructureTemplate top = StructureHelper.readStructure(BetterEnd.makeID("pillars/pillar_top_" + radius + (

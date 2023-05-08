@@ -383,18 +383,6 @@ public class EternalRitual {
             if (checkFrame(level, found.get()))
                 return found.get();
         }
-        //                List<BlockPos.MutableBlockPos> foundPos = findAllBlockPos(
-//                level,
-//                startPos,
-//                (SEARCH_RADIUS >> 4) + 1,
-//                FRAME,
-//                blockState -> blockState.is(FRAME) && !blockState.getValue(ACTIVE)
-//                                                                         );
-//        for (BlockPos.MutableBlockPos testPos : foundPos) {
-//            if (checkFrame(level, testPos)) {
-//                return testPos;
-//            }
-//        }
         return null;
     }
 

@@ -1,11 +1,8 @@
 package org.betterx.betterend.entity;
 
-import org.betterx.bclib.api.v2.levelgen.biomes.BCLBiome;
-import org.betterx.bclib.api.v2.levelgen.biomes.BiomeAPI;
 import org.betterx.bclib.util.BlocksHelper;
 import org.betterx.bclib.util.MHelper;
 import org.betterx.betterend.interfaces.ISlime;
-import org.betterx.betterend.registry.EndBiomes;
 import org.betterx.betterend.util.GlobalState;
 import org.betterx.worlds.together.tag.v3.CommonBlockTags;
 
@@ -89,14 +86,6 @@ public class EndSlimeEntity extends Slime {
             CompoundTag entityTag
     ) {
         SpawnGroupData data = super.finalizeSpawn(world, difficulty, spawnReason, entityData, entityTag);
-        BCLBiome biome = BiomeAPI.getBiome(world.getBiome(blockPosition()));
-        if (biome.equals(EndBiomes.FOGGY_MUSHROOMLAND)) {
-            this.setMossy();
-        } else if (biome.equals(EndBiomes.MEGALAKE) || biome.equals(EndBiomes.MEGALAKE_GROVE)) {
-            this.setLake();
-        } else if (biome.equals(EndBiomes.AMBER_LAND)) {
-            this.setAmber();
-        }
         this.refreshDimensions();
         return data;
     }
@@ -226,13 +215,6 @@ public class EndSlimeEntity extends Slime {
     ) {
         if (!world.getBlockState(pos.below()).is(CommonBlockTags.END_STONES)) {
             return false;
-        }
-        BCLBiome biome = BiomeAPI.getBiome(world.getBiome(pos));
-        if (biome.equals(EndBiomes.CHORUS_FOREST) || biome.equals(EndBiomes.MEGALAKE)) {
-            return true;
-        }
-        if (biome.equals(EndBiomes.MEGALAKE_GROVE) && random.nextBoolean()) {
-            return true;
         }
         return random.nextInt(4) == 0 && isWaterNear(world, pos);
     }

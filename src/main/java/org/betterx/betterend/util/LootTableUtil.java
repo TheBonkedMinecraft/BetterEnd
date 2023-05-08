@@ -1,10 +1,7 @@
 package org.betterx.betterend.util;
 
-import org.betterx.bclib.api.v2.levelgen.biomes.BCLBiome;
-import org.betterx.bclib.api.v2.levelgen.biomes.BiomeAPI;
 import org.betterx.bclib.complexmaterials.WoodenComplexMaterial;
 import org.betterx.betterend.BetterEnd;
-import org.betterx.betterend.registry.EndBiomes;
 import org.betterx.betterend.registry.EndBlocks;
 import org.betterx.betterend.registry.EndItems;
 
@@ -44,27 +41,27 @@ public class LootTableUtil {
     private static final LootItemCondition.Builder IN_END
             = LocationCheck.checkLocation(LocationPredicate.Builder.location().setDimension(Level.END));
     private static final LootItemCondition.Builder IN_FOGGY_MUSHROOMLAND
-            = LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiome(EndBiomes.FOGGY_MUSHROOMLAND.getBiomeKey()));
+            = LocationCheck.checkLocation(LocationPredicate.Builder.location().setDimension(Level.END));
     private static final LootItemCondition.Builder IN_CHORUS_FOREST
-            = LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiome(EndBiomes.CHORUS_FOREST.getBiomeKey()));
+            = LocationCheck.checkLocation(LocationPredicate.Builder.location().setDimension(Level.END));
     private static final LootItemCondition.Builder IN_AMBER_LAND
-            = LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiome(EndBiomes.AMBER_LAND.getBiomeKey()));
+            = LocationCheck.checkLocation(LocationPredicate.Builder.location().setDimension(Level.END));
     private static final LootItemCondition.Builder IN_GLOWING_GRASSLANDS
-            = LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiome(EndBiomes.GLOWING_GRASSLANDS.getBiomeKey()));
+            = LocationCheck.checkLocation(LocationPredicate.Builder.location().setDimension(Level.END));
     private static final LootItemCondition.Builder IN_LANTERN_WOODS
-            = LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiome(EndBiomes.LANTERN_WOODS.getBiomeKey()));
+            = LocationCheck.checkLocation(LocationPredicate.Builder.location().setDimension(Level.END));
     private static final LootItemCondition.Builder IN_MEGALAKE
-            = LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiome(EndBiomes.MEGALAKE.getBiomeKey()));
+            = LocationCheck.checkLocation(LocationPredicate.Builder.location().setDimension(Level.END));
     private static final LootItemCondition.Builder IN_MEGALAKE_GROVE
-            = LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiome(EndBiomes.MEGALAKE_GROVE.getBiomeKey()));
+            = LocationCheck.checkLocation(LocationPredicate.Builder.location().setDimension(Level.END));
     private static final LootItemCondition.Builder IN_NEON_OASIS
-            = LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiome(EndBiomes.NEON_OASIS.getBiomeKey()));
+            = LocationCheck.checkLocation(LocationPredicate.Builder.location().setDimension(Level.END));
     private static final LootItemCondition.Builder IN_SHADOW_FOREST
-            = LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiome(EndBiomes.SHADOW_FOREST.getBiomeKey()));
+            = LocationCheck.checkLocation(LocationPredicate.Builder.location().setDimension(Level.END));
     private static final LootItemCondition.Builder IN_SULPHUR_SPRINGS
-            = LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiome(EndBiomes.SULPHUR_SPRINGS.getBiomeKey()));
+            = LocationCheck.checkLocation(LocationPredicate.Builder.location().setDimension(Level.END));
     private static final LootItemCondition.Builder IN_UMBRELLA_JUNGLE
-            = LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiome(EndBiomes.UMBRELLA_JUNGLE.getBiomeKey()));
+            = LocationCheck.checkLocation(LocationPredicate.Builder.location().setDimension(Level.END));
 
     public static void init() {
         LootTableEvents.MODIFY.register((resourceManager, lootManager, id, table, setter) -> {
@@ -164,18 +161,6 @@ public class LootTableUtil {
     }
 
     public static ResourceLocation getTable(Holder<Biome> biome) {
-        BCLBiome bclBiome = BiomeAPI.getBiome(biome.value());
-        if (bclBiome.equals(EndBiomes.FOGGY_MUSHROOMLAND)) {
-            return FOGGY_MUSHROOMLAND;
-        } else if (bclBiome.equals(EndBiomes.CHORUS_FOREST)) {
-            return CHORUS_FOREST;
-        } else if (bclBiome.equals(EndBiomes.SHADOW_FOREST)) {
-            return SHADOW_FOREST;
-        } else if (bclBiome.equals(EndBiomes.LANTERN_WOODS)) {
-            return LANTERN_WOODS;
-        } else if (bclBiome.equals(EndBiomes.UMBRELLA_JUNGLE)) {
-            return UMBRELLA_JUNGLE;
-        }
         return COMMON;
     }
 

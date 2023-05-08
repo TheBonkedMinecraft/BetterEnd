@@ -7,7 +7,6 @@ import org.betterx.betterend.BetterEnd;
 import org.betterx.betterend.blocks.basis.EndTerrainBlock;
 import org.betterx.betterend.blocks.basis.PedestalBlock;
 import org.betterx.betterend.item.tool.EndHammerItem;
-import org.betterx.betterend.world.biome.EndBiome;
 import org.betterx.worlds.together.tag.v3.CommonBlockTags;
 import org.betterx.worlds.together.tag.v3.CommonItemTags;
 import org.betterx.worlds.together.tag.v3.MineableTags;
@@ -132,9 +131,4 @@ public class EndTags {
         TagManager.BLOCKS.add(CommonBlockTags.END_STONES, bl);
     }
 
-    public static void addBiomeSurfaceToEndGroup(EndBiome b) {
-        addEndGround(b.getTopMaterial().getBlock());
-        addEndGround(b.getAltTopMaterial().getBlock());
-        addEndGround(b.getUnderMaterial().getBlock());
-    }
 }

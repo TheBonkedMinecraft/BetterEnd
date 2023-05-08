@@ -196,9 +196,6 @@ public class LacugroveFeature extends DefaultFeature {
 
     static {
         REPLACE = (state) -> {
-			/*if (state.is(CommonBlockTags.END_STONES)) {
-				return true;
-			}*/
             if (EndBlocks.LACUGROVE.isTreeLog(state)) {
                 return true;
             }

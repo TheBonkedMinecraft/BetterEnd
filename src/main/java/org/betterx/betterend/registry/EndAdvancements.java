@@ -30,46 +30,6 @@ public class EndAdvancements {
                 .requirements(RequirementsStrategy.OR)
                 .buildAndRegister();
 
-        ResourceLocation portal = AdvancementManager.Builder
-                .create(BetterEnd.makeID("portal"))
-                .parent(root)
-                .startDisplay(EndBlocks.ETERNAL_PEDESTAL)
-                .frame(FrameType.GOAL)
-                .endDisplay()
-                .addAtStructureCriterion("eternal_portal", EndStructures.ETERNAL_PORTAL)
-                .requirements(RequirementsStrategy.OR)
-                .buildAndRegister();
-
-        ResourceLocation portalOn = AdvancementManager.Builder
-                .create(BetterEnd.makeID("portal_on"))
-                .parent(portal)
-                .startDisplay(EndItems.ETERNAL_CRYSTAL)
-                .endDisplay()
-                .addCriterion("turn_on", BECriteria.PORTAL_ON_TRIGGER)
-                .requirements(RequirementsStrategy.OR)
-                .buildAndRegister();
-
-        ResourceLocation portalTravel = AdvancementManager.Builder
-                .create(BetterEnd.makeID("portal_travel"))
-                .parent(portalOn)
-                .startDisplay(Items.GRASS_BLOCK)
-                .frame(FrameType.CHALLENGE)
-                .endDisplay()
-                .addCriterion("travel", BECriteria.PORTAL_TRAVEL_TRIGGER)
-                .requirements(RequirementsStrategy.OR)
-                .buildAndRegister();
-
-        ResourceLocation allTheBiomes = AdvancementManager.Builder
-                .create(BetterEnd.makeID("all_the_biomes"))
-                .parent(root)
-                .startDisplay(EndItems.AETERNIUM_BOOTS)
-                .frame(FrameType.CHALLENGE)
-                .endDisplay()
-                .addVisitBiomesCriterion(EndBiomes.ALL_BE_BIOMES.stream().map(b -> b.getBiomeKey()).toList())
-                .requirements(RequirementsStrategy.AND)
-                .rewardXP(1500)
-                .buildAndRegister();
-
         ResourceLocation allElytras = AdvancementManager.Builder
                 .create(BetterEnd.makeID("all_elytras"))
                 .parent(root)

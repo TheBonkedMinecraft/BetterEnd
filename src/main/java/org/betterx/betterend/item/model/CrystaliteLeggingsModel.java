@@ -20,17 +20,10 @@ public class CrystaliteLeggingsModel extends HumanoidModel<LivingEntity> {
         float scale = 1.0f;
         MeshDefinition modelData = new MeshDefinition();
         PartDefinition modelPartData = modelData.getRoot();
-
-        // TODO: see if we need to subclass HumanoidModel
-        // Humanoid model tries to retrieve all parts in it's constructor,
-        // so we need to add empty Nodes
         modelPartData.addOrReplaceChild("head", CubeListBuilder.create(), PartPose.ZERO);
         modelPartData.addOrReplaceChild("hat", CubeListBuilder.create(), PartPose.ZERO);
-        // modelPartData.addOrReplaceChild("body", CubeListBuilder.create(), PartPose.ZERO);
         modelPartData.addOrReplaceChild("right_arm", CubeListBuilder.create(), PartPose.ZERO);
         modelPartData.addOrReplaceChild("left_arm", CubeListBuilder.create(), PartPose.ZERO);
-        // modelPartData.addOrReplaceChild("right_leg", CubeListBuilder.create(), PartPose.ZERO);
-        // modelPartData.addOrReplaceChild("left_leg", CubeListBuilder.create(), PartPose.ZERO);
 
         CubeDeformation deformation = new CubeDeformation(scale);
         modelPartData.addOrReplaceChild(

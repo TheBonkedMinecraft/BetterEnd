@@ -397,8 +397,6 @@ public class EndStoneSmelterBlockEntity extends BaseContainerBlockEntity impleme
 
     @Override
     public int[] getSlotsForFace(Direction side) {
-//        var facing = getBlockState().getValue(EndStoneSmelter.FACING);
-//        if (side == facing) return JUST_A;
         return switch (side) {
             case DOWN -> BOTTOM_SLOTS;
             case UP -> TOP_SLOTS;

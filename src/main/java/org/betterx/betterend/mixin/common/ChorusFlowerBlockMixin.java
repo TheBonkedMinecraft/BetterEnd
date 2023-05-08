@@ -2,7 +2,6 @@ package org.betterx.betterend.mixin.common;
 
 import org.betterx.bclib.util.BlocksHelper;
 import org.betterx.betterend.registry.EndBlocks;
-import org.betterx.betterend.world.generator.GeneratorOptions;
 import org.betterx.worlds.together.tag.v3.CommonBlockTags;
 
 import net.minecraft.core.BlockPos;
@@ -88,11 +87,7 @@ public abstract class ChorusFlowerBlockMixin extends Block {
     @Override
     @SuppressWarnings("deprecation")
     public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
-        if (GeneratorOptions.changeChorusPlant()) {
-            return state.getValue(ChorusFlowerBlock.AGE) == 5 ? SHAPE_HALF : SHAPE_FULL;
-        } else {
-            return super.getShape(state, world, pos, context);
-        }
+        return super.getShape(state, world, pos, context);
     }
 
     @Inject(method = "placeDeadFlower", at = @At("HEAD"), cancellable = true)

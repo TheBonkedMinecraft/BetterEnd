@@ -1,8 +1,8 @@
 package org.betterx.betterend.mixin.client;
 
+import net.minecraft.world.level.biome.Biome;
 import org.betterx.bclib.api.v2.levelgen.biomes.BiomeAPI;
 import org.betterx.betterend.client.ClientOptions;
-import org.betterx.betterend.world.biome.EndBiome;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.sounds.AbstractSoundInstance;
@@ -83,11 +83,7 @@ public abstract class MusicTrackerMixin {
     }
 
     private boolean be_isCorrectBiome() {
-        if (minecraft.level == null) {
-            return false;
-        }
-        return BiomeAPI.getRenderBiome(minecraft.level.getBiome(minecraft.player.blockPosition())
-                                                      .value()) instanceof EndBiome;
+        return false;
     }
 
     private boolean be_shouldChangeSound(Music musicSound) {

@@ -7,7 +7,6 @@ import org.betterx.bclib.sdf.operator.SDFTranslate;
 import org.betterx.bclib.sdf.primitive.SDFCappedCone;
 import org.betterx.bclib.util.BlocksHelper;
 import org.betterx.betterend.noise.OpenSimplexNoise;
-import org.betterx.betterend.world.biome.EndBiome;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockPos.MutableBlockPos;
@@ -29,18 +28,6 @@ public class BiomeIslandFeature extends DefaultFeature {
     public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> featureConfig) {
         final BlockPos pos = featureConfig.origin();
         final WorldGenLevel world = featureConfig.level();
-        //Holder<Biome> biome = world.getBiome(pos);
-        int dist = BlocksHelper.downRay(world, pos, 10) + 1;
-        BlockPos surfacePos = new BlockPos(pos.getX(), pos.getY() - dist, pos.getZ());
-        BlockState topMaterial = EndBiome.findTopMaterial(world, surfacePos);
-
-        if (BlocksHelper.isFluid(topMaterial)) {
-            topBlock = Blocks.GRAVEL.defaultBlockState();
-            underBlock = Blocks.STONE.defaultBlockState();
-        } else {
-            underBlock = EndBiome.findUnderMaterial(world, surfacePos);
-        }
-
         simplexNoise = new OpenSimplexNoise(world.getSeed());
         CENTER.set(pos);
         ISLAND.fillRecursive(world, pos.below());

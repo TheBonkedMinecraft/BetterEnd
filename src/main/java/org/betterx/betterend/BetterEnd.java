@@ -1,6 +1,5 @@
 package org.betterx.betterend;
 
-import org.betterx.bclib.api.v2.generator.BiomeDecider;
 import org.betterx.bclib.api.v2.levelgen.biomes.BiomeAPI;
 import org.betterx.betterend.advancements.BECriteria;
 import org.betterx.betterend.api.BetterEndPlugin;
@@ -12,8 +11,6 @@ import org.betterx.betterend.recipe.*;
 import org.betterx.betterend.registry.*;
 import org.betterx.betterend.util.BonemealPlants;
 import org.betterx.betterend.util.LootTableUtil;
-import org.betterx.betterend.world.generator.EndLandBiomeDecider;
-import org.betterx.betterend.world.generator.GeneratorOptions;
 import org.betterx.worlds.together.util.Logger;
 import org.betterx.worlds.together.world.WorldConfig;
 
@@ -40,7 +37,6 @@ public class BetterEnd implements ModInitializer {
         EndPoiTypes.register();
         EndFeatures.register();
         EndEntities.register();
-        EndBiomes.register();
         EndTags.register();
         EndBlocks.ensureStaticallyLoaded();
         EndItems.ensureStaticallyLoaded();
@@ -54,7 +50,6 @@ public class BetterEnd implements ModInitializer {
         InfusionRecipes.register();
         EndStructures.register();
         BonemealPlants.init();
-        GeneratorOptions.init();
         LootTableUtil.init();
         CommandRegistry.register();
         BECriteria.register();
@@ -65,9 +60,6 @@ public class BetterEnd implements ModInitializer {
         Integrations.init();
         Configs.saveConfigs();
 
-        if (GeneratorOptions.useNewGenerator()) {
-            BiomeDecider.registerHighPriorityDecider(makeID("end_land"), new EndLandBiomeDecider());
-        }
 
         BiomeAPI.registerEndBiomeModification((biomeID, biome) -> {
             if (!biomeID.equals(Biomes.THE_VOID.location())) {

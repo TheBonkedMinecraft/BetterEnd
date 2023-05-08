@@ -1,7 +1,6 @@
 package org.betterx.betterend.world.features.terrain.caves;
 
 import org.betterx.bclib.api.v2.levelgen.biomes.BiomeAPI;
-import org.betterx.betterend.world.biome.cave.EndCaveBiome;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -13,7 +12,4 @@ public record CaveChunkPopulatorFeatureConfig(ResourceLocation biomeID) implemen
             .group(ResourceLocation.CODEC.fieldOf("biome").forGetter(o -> o.biomeID))
             .apply(instance, CaveChunkPopulatorFeatureConfig::new));
 
-    public EndCaveBiome getCaveBiome() {
-        return (EndCaveBiome) BiomeAPI.getBiome(biomeID);
-    }
 }

@@ -2,7 +2,6 @@ package org.betterx.betterend.registry;
 
 import org.betterx.bclib.BCLib;
 import org.betterx.bclib.api.v2.levelgen.biomes.BCLBiome;
-import org.betterx.bclib.api.v2.levelgen.biomes.BCLBiomeBuilder;
 import org.betterx.bclib.api.v2.levelgen.biomes.BiomeAPI;
 import org.betterx.bclib.api.v3.levelgen.features.BCLConfigureFeature;
 import org.betterx.bclib.api.v3.levelgen.features.BCLFeature;
@@ -12,15 +11,9 @@ import org.betterx.bclib.api.v3.levelgen.features.placement.InBiome;
 import org.betterx.bclib.util.JsonFactory;
 import org.betterx.betterend.BetterEnd;
 import org.betterx.betterend.complexmaterials.StoneMaterial;
-import org.betterx.betterend.config.Configs;
-import org.betterx.betterend.world.biome.EndBiome;
-import org.betterx.betterend.world.biome.cave.EndCaveBiome;
 import org.betterx.betterend.world.features.*;
 import org.betterx.betterend.world.features.bushes.*;
 import org.betterx.betterend.world.features.terrain.*;
-import org.betterx.betterend.world.features.terrain.caves.CaveChunkPopulatorFeature;
-import org.betterx.betterend.world.features.terrain.caves.RoundCaveFeature;
-import org.betterx.betterend.world.features.terrain.caves.TunelCaveFeature;
 import org.betterx.betterend.world.features.trees.*;
 
 import net.minecraft.core.Holder;
@@ -36,7 +29,6 @@ import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.OreFeature;
 import net.minecraft.world.level.levelgen.feature.RandomPatchFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.*;
-import net.minecraft.world.level.levelgen.feature.stateproviders.SimpleStateProvider;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
 import com.google.common.collect.Lists;
@@ -91,10 +83,6 @@ public class EndFeatures {
             new MengerSpongeFeature()
     );
 
-    public static final CaveChunkPopulatorFeature CAVE_CHUNK_POPULATOR = inlineBuild(
-            "cave_chunk_populator",
-            new CaveChunkPopulatorFeature()
-    );
 
     public static final SinglePlantFeature SINGLE_PLANT_FEATURE = inlineBuild(
             "single_plant_feature",
@@ -818,11 +806,6 @@ public class EndFeatures {
             inlineBuild("desert_lake", new DesertLakeFeature()),
             8
     );
-    public static final BCLFeature<RoundCaveFeature, NoneFeatureConfiguration> ROUND_CAVE = registerRawGen(
-            "round_cave",
-            inlineBuild("round_cave", new RoundCaveFeature()),
-            2
-    );
     public static final BCLFeature<SpireFeature, NoneFeatureConfiguration> SPIRE = registerRawGen(
             "spire",
             inlineBuild("spire", new SpireFeature()),
@@ -894,30 +877,6 @@ public class EndFeatures {
             inlineBuild("fallen_pillar", new FallenPillarFeature()),
             20
     );
-    public static final BCLFeature<TunelCaveFeature, NoneFeatureConfiguration> TUNEL_CAVE = BCLFeatureBuilder
-            .start(
-                    BetterEnd.makeID("tunel_cave"),
-                    inlineBuild("tunel_cave", new TunelCaveFeature())
-            ).buildAndRegister()
-            .place()
-            .decoration(Decoration.RAW_GENERATION)
-            .count(1)
-            .onlyInBiome()
-            .buildAndRegister();
-    public static final BCLFeature<ArchFeature, ArchFeatureConfig> UMBRALITH_ARCH = registerChanced(
-            "umbralith_arch",
-            ARCH_FEATURE, new ArchFeatureConfig(
-                    EndBlocks.UMBRALITH.stone,
-                    ArchFeatureConfig.SurfaceFunction.UMBRA_VALLEY
-            ),
-            10
-    );
-    public static final BCLFeature<ThinArchFeature, ThinArchFeatureConfig> THIN_UMBRALITH_ARCH = registerChanced(
-            "thin_umbralith_arch",
-            THIN_ARCH_FEATURE,
-            new ThinArchFeatureConfig(EndBlocks.UMBRALITH.stone),
-            15
-    );
 
     // Ores //
     public static final BCLFeature<OreFeature, OreConfiguration> THALLASIUM_ORE = registerOre(
@@ -932,26 +891,7 @@ public class EndFeatures {
             12,
             4
     );
-    public static final BCLFeature<OreFeature, OreConfiguration> AMBER_ORE = registerOre(
-            "amber_ore",
-            EndBlocks.AMBER_ORE,
-            60,
-            6
-    );
-    public static final BCLFeature<OreFeature, OreConfiguration> DRAGON_BONE_BLOCK_ORE = registerOre(
-            "dragon_bone_ore",
-            EndBlocks.DRAGON_BONE_BLOCK,
-            24,
-            8
-    );
-    public static final BCLFeature<OreLayerFeature, OreLayerFeatureConfig> VIOLECITE_LAYER = registerLayer(
-            "violecite_layer",
-            EndBlocks.VIOLECITE,
-            15,
-            16,
-            128,
-            8
-    );
+
 
     public static final BCLFeature<OreLayerFeature, OreLayerFeatureConfig> FLAVOLITE_LAYER = registerLayer(
             "flavolite_layer",
@@ -966,87 +906,9 @@ public class EndFeatures {
     public static final BCLFeature<CrashedShipFeature, NBTFeatureConfig> CRASHED_SHIP = registerChanced(
             "crashed_ship",
             inlineBuild("crashed_ship", new CrashedShipFeature()),
-            new NBTFeatureConfig(EndBiome.Config.DEFAULT_MATERIAL.getTopMaterial()),
+            new NBTFeatureConfig(Blocks.END_STONE.defaultBlockState()),
             500
     );
-
-    // Mobs
-    public static final BCLFeature<SilkMothNestFeature, NoneFeatureConfiguration> SILK_MOTH_NEST = registerChanced(
-            "silk_moth_nest",
-            inlineBuild("silk_moth_nest", new SilkMothNestFeature()),
-            2
-    );
-
-    // Caves
-    public static final BCLConfigureFeature<SmaragdantCrystalFeature, NoneFeatureConfiguration> SMARAGDANT_CRYSTAL = BCLFeatureBuilder
-            .start(
-                    BetterEnd.makeID("smaragdant_crystal"),
-                    inlineBuild("smaragdant_crystal", new SmaragdantCrystalFeature())
-            )
-            .buildAndRegister();
-    public static final BCLConfigureFeature<SingleBlockFeature, SimpleBlockConfiguration> SMARAGDANT_CRYSTAL_SHARD = BCLFeatureBuilder
-            .start(BetterEnd.makeID("smaragdant_crystal_shard"), SINGLE_BLOCK_FEATURE)
-            .configuration(new SimpleBlockConfiguration(SimpleStateProvider.simple(EndBlocks.SMARAGDANT_CRYSTAL_SHARD)))
-            .buildAndRegister();
-
-    public static final BCLConfigureFeature<BigAuroraCrystalFeature, NoneFeatureConfiguration> BIG_AURORA_CRYSTAL = BCLFeatureBuilder
-            .start(
-                    BetterEnd.makeID("big_aurora_crystal"),
-                    inlineBuild("big_aurora_crystal", new BigAuroraCrystalFeature())
-            )
-            .buildAndRegister();
-    public static final BCLConfigureFeature<BushFeature, BushFeatureConfig> CAVE_BUSH = BCLFeatureBuilder
-            .start(BetterEnd.makeID("cave_bush"), BUSH_FEATURE)
-            .configuration(new BushFeatureConfig(EndBlocks.CAVE_BUSH, EndBlocks.CAVE_BUSH))
-            .buildAndRegister();
-    public static final BCLConfigureFeature<SingleBlockFeature, SimpleBlockConfiguration> CAVE_GRASS = BCLFeatureBuilder
-            .start(BetterEnd.makeID("cave_grass"), SINGLE_BLOCK_FEATURE)
-            .configuration(new SimpleBlockConfiguration(SimpleStateProvider.simple(EndBlocks.CAVE_GRASS)))
-            .buildAndRegister();
-    public static final BCLConfigureFeature<VineFeature, VineFeatureConfig> RUBINEA = BCLFeatureBuilder
-            .start(BetterEnd.makeID("rubinea"), VINE_FEATURE)
-            .configuration(new VineFeatureConfig(EndBlocks.RUBINEA, 8))
-            .buildAndRegister();
-
-    public static final BCLConfigureFeature<VineFeature, VineFeatureConfig> MAGNULA = BCLFeatureBuilder
-            .start(BetterEnd.makeID("magnula"), VINE_FEATURE)
-            .configuration(new VineFeatureConfig(EndBlocks.MAGNULA, 8))
-            .buildAndRegister();
-
-    public static final BCLConfigureFeature<StalactiteFeature, StalactiteFeatureConfig> END_STONE_STALACTITE = BCLFeatureBuilder
-            .start(BetterEnd.makeID("end_stone_stalactite"), STALACTITE_FEATURE)
-            .configuration(new StalactiteFeatureConfig(true, EndBlocks.END_STONE_STALACTITE, Blocks.END_STONE))
-            .buildAndRegister();
-
-
-    public static final BCLConfigureFeature<StalactiteFeature, StalactiteFeatureConfig> END_STONE_STALAGMITE = BCLFeatureBuilder
-            .start(BetterEnd.makeID("end_stone_stalagmite"), STALACTITE_FEATURE)
-            .configuration(new StalactiteFeatureConfig(false, EndBlocks.END_STONE_STALACTITE, Blocks.END_STONE))
-            .buildAndRegister();
-    public static final BCLConfigureFeature<StalactiteFeature, StalactiteFeatureConfig> END_STONE_STALACTITE_CAVEMOSS = BCLFeatureBuilder
-            .start(BetterEnd.makeID("end_stone_stalactite_cavemoss"), STALACTITE_FEATURE)
-            .configuration(new StalactiteFeatureConfig(
-                    true,
-                    EndBlocks.END_STONE_STALACTITE_CAVEMOSS,
-                    Blocks.END_STONE,
-                    EndBlocks.CAVE_MOSS
-            ))
-            .buildAndRegister();
-    public static final BCLConfigureFeature<StalactiteFeature, StalactiteFeatureConfig> END_STONE_STALAGMITE_CAVEMOSS = BCLFeatureBuilder
-            .start(BetterEnd.makeID("end_stone_stalagmite_cavemoss"), STALACTITE_FEATURE)
-            .configuration(new StalactiteFeatureConfig(
-                    false,
-                    EndBlocks.END_STONE_STALACTITE_CAVEMOSS,
-                    EndBlocks.CAVE_MOSS
-            ))
-            .buildAndRegister();
-    public static final BCLConfigureFeature<CavePumpkinFeature, NoneFeatureConfiguration> CAVE_PUMPKIN = BCLFeatureBuilder
-            .start(
-                    BetterEnd.makeID("cave_pumpkin"),
-                    inlineBuild("cave_pumpkin", new CavePumpkinFeature())
-            )
-            .buildAndRegister();
-
 
     private static final Holder<PlacedFeature> BONEMEAL_END_MOSS_NOT_GLOWING_GRASSLANDS = BCLFeatureBuilder
             .startBonemealPatch(BetterEnd.makeID("bonemeal_end_moss_not_glowing_grasslands"))
@@ -1071,7 +933,7 @@ public class EndFeatures {
                     BCLFeature.CONDITION
             )
             .configuration(new ConditionFeatureConfig(
-                    InBiome.matchingID(EndBiomes.GLOWING_GRASSLANDS.getID()),
+                    InBiome.matchingID(),
                     BONEMEAL_END_MOSS_GLOWING_GRASSLANDS,
                     BONEMEAL_END_MOSS_NOT_GLOWING_GRASSLANDS
             ))
@@ -1100,7 +962,7 @@ public class EndFeatures {
                     BCLFeature.CONDITION
             )
             .configuration(new ConditionFeatureConfig(
-                    InBiome.matchingID(EndBiomes.LANTERN_WOODS.getID()),
+                    InBiome.matchingID(),
                     BONEMEAL_RUTISCUS_LANTERN_WOODS,
                     BONEMEAL_RUTISCUS_NOT_LANTERN_WOODS
             ))
@@ -1351,19 +1213,6 @@ public class EndFeatures {
             if (feature != null) {
                 BiomeAPI.addBiomeFeature(biome, feature);
             }
-
-
-            boolean hasCaves = !(bclbiome instanceof EndCaveBiome);
-            if (!(bclbiome instanceof EndCaveBiome) && bclbiome instanceof EndBiome endBiome) {
-                hasCaves = endBiome.hasCaves();
-            }
-
-            if (hasCaves && !BiomeAPI.wasRegisteredAsEndVoidBiome(id) /*!BiomeAPI.END_VOID_BIOME_PICKER.containsImmutable(id)*/) {
-                if (Configs.BIOME_CONFIG.getBoolean(id, "hasCaves", true)) {
-                    BiomeAPI.addBiomeFeature(biome, ROUND_CAVE);
-                    BiomeAPI.addBiomeFeature(biome, TUNEL_CAVE);
-                }
-            }
         }
     }
 
@@ -1420,29 +1269,6 @@ public class EndFeatures {
             }
         }
         return null;
-    }
-
-    public static BCLBiomeBuilder addDefaultFeatures(
-            ResourceLocation biomeID,
-            BCLBiomeBuilder builder,
-            boolean hasCaves
-    ) {
-        builder.feature(FLAVOLITE_LAYER);
-        builder.feature(THALLASIUM_ORE);
-        builder.feature(ENDER_ORE);
-        builder.feature(CRASHED_SHIP);
-
-        BCLFeature<BuildingListFeature, BuildingListFeatureConfig> feature = getBiomeStructures(biomeID);
-        if (feature != null) {
-            builder.feature(feature);
-        }
-
-        if (hasCaves) {
-            builder.feature(ROUND_CAVE);
-            builder.feature(TUNEL_CAVE);
-        }
-
-        return builder;
     }
 
     public static void register() {

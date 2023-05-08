@@ -1,7 +1,6 @@
 package org.betterx.betterend.mixin.common;
 
 import org.betterx.betterend.interfaces.TeleportingEntity;
-import org.betterx.betterend.world.generator.GeneratorOptions;
 
 import com.mojang.authlib.GameProfile;
 import net.minecraft.core.BlockPos;
@@ -67,11 +66,7 @@ public abstract class ServerPlayerMixin extends Player implements TeleportingEnt
 
 
     @Inject(method = "createEndPlatform", at = @At("HEAD"), cancellable = true)
-    private void be_createEndSpawnPlatform(ServerLevel world, BlockPos centerPos, CallbackInfo info) {
-        if (!GeneratorOptions.generateObsidianPlatform()) {
-            info.cancel();
-        }
-    }
+    private void be_createEndSpawnPlatform(ServerLevel world, BlockPos centerPos, CallbackInfo info) {}
 
     @Inject(method = "findDimensionEntryPoint", at = @At("HEAD"), cancellable = true)
     protected void be_getTeleportTarget(ServerLevel destination, CallbackInfoReturnable<PortalInfo> info) {
@@ -82,10 +77,6 @@ public abstract class ServerPlayerMixin extends Player implements TeleportingEnt
                     getYRot(),
                     getXRot()
             ));
-        } else if (GeneratorOptions.changeSpawn() && destination.dimension() == Level.END) {
-            BlockPos spawn = GeneratorOptions.getSpawn();
-            Vec3 pos = new Vec3(spawn.getX() + 0.5, spawn.getY(), spawn.getZ() + 0.5);
-            info.setReturnValue(new PortalInfo(pos, Vec3.ZERO, 90.0F, 0.0F));
         }
     }
 
