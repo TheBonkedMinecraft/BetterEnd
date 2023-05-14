@@ -34,3 +34,5 @@ output/
 Convert.class
 ModelPart.class
 libs/
+
+.DS_STORE
